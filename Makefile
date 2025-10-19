@@ -5,7 +5,7 @@ install:
 	uv sync
 
 test-coverage:
-	uv run pytest --cov=csv-project --cov-report term --cov-report lcov:reports/lcov.info
+	uv run pytest --cov=csv-project --cov-report xml
 
 test:
 	uv run pytest
