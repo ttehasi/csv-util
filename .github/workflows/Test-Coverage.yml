@@ -21,14 +21,23 @@ jobs:
       - name: Run linter and pytest
         run: |
           make check
-      - name: Run tests with lcov coverage
-        run: |
-          make test-coverage
-      - name: Upload coverage to Qlty
+      # - name: Run tests with lcov coverage
+      #   run: |
+      #     make test-coverage
+      # - name: Upload coverage to Qlty
+      #   uses: qltysh/qlty-action/coverage@v2
+      #   with:
+      #     token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+      #     files: reports/lcov.info
+
+      - name: Test & publish code coverage
         uses: qltysh/qlty-action/coverage@v2
-        with:
+        if: github.ref_name == 'main'
+        env:
           token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-          files: reports/lcov.info
+        with:
+          coverageCommand: make test-coverage
+          debug: true
 
 
       # - name: Test & publish code coverage
