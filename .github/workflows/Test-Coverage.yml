@@ -30,15 +30,13 @@ jobs:
       #     token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
       #     files: reports/lcov.info
 
-      - name: Test & publish code coverage
-        uses: qltysh/qlty-action/coverage@v2
+      - name: Test & publish code coverage to Qlty
         if: github.ref_name == 'main'
-        env:
-          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+        uses: qltysh/qlty-action/coverage@v2
         with:
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           coverageCommand: make test-coverage
           debug: true
-
 
       # - name: Test & publish code coverage
       #   uses: paambaati/codeclimate-action@v9.0.0
